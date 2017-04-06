@@ -16,6 +16,9 @@ void draw() {
     cursor(HAND);
   else
     cursor(ARROW);
+
+  Line l = new Line(0, 0, 1);
+  l.Render();
 }
 
 void mouseClicked() {
