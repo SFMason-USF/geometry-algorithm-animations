@@ -1,7 +1,7 @@
 enum Algorithm { 
   Diagonal, EarBased, GiftWrapping
 }
-final Algorithm algorithm = Algorithm.Diagonal;
+final Algorithm algorithm = Algorithm.EarBased;
 
 int MidX, MidY;
 
@@ -12,12 +12,14 @@ GeometryAnimation diagonal;
 GeometryAnimation ear;
 GeometryAnimation wrap;
 
-Point[] polygon = new Point[6];
+Point[] polygon = new Point[7];
 
 void setup() {
   size(800, 800);
   MidX = width / 2;
   MidY = height / 2;
+
+  frameRate(10);
 
   start = new Button(5, 5, 120, 35, "Start");
   stop = new Button(5, 45, 120, 35, "Stop");
@@ -28,18 +30,17 @@ void setup() {
   polygon[0] = new Point(XtoP(3), YtoP(-2)); 
   polygon[1] = new Point(XtoP(3), YtoP(2)); 
   polygon[2] = new Point(XtoP(1), YtoP(3));
-  polygon[3] = new Point(XtoP(-1), YtoP(2)); 
+  polygon[3] = new Point(XtoP(-1), YtoP(0)); 
   polygon[4] = new Point(XtoP(-3), YtoP(3));
-  polygon[5] = new Point(XtoP(-3), YtoP(-3));
+  polygon[5] = new Point(XtoP(-3), YtoP(-2));
+  polygon[6] = new Point(XtoP(-1), YtoP(-1));
 
-//Define base displays
+  //Define base displays
   diagonal = new GeometryAnimation();
-  diagonal.base.add(new LineSegment(polygon[0], polygon[1]));
-  diagonal.base.add(new LineSegment(polygon[1], polygon[2]));
-  diagonal.base.add(new LineSegment(polygon[2], polygon[3]));
-  diagonal.base.add(new LineSegment(polygon[3], polygon[4]));
-  diagonal.base.add(new LineSegment(polygon[4], polygon[5]));
-  diagonal.base.add(new LineSegment(polygon[5], polygon[0]));
+  for (int i = 0; i < polygon.length - 1; ++i) {
+    diagonal.base.add(new LineSegment(polygon[i], polygon[i + 1]));
+  }
+  diagonal.base.add(new LineSegment(polygon[polygon.length - 1], polygon[0]));
 
   ear = new GeometryAnimation();
   ear.base = diagonal.base;
@@ -48,14 +49,20 @@ void setup() {
   for (int i = 0; i < polygon.length; ++i) {
     wrap.base.add(polygon[i]);
   }
-  
+
   //And now the fun part: the animation frames
   //diagonal
-  
-  
+  diagonal.anim.add(new AnimationShape(new LineSegment(polygon[0], polygon[2]), true));
+  diagonal.anim.add(new AnimationShape(new LineSegment(polygon[0], polygon[3]), true));
+  diagonal.anim.add(new AnimationShape(new LineSegment(polygon[3], polygon[5]), true));
+  diagonal.anim.add(new AnimationShape(new LineSegment(polygon[3], polygon[6]), true));
+
   //ear-based
-  
-  
+  ear.anim.add(new AnimationShape(new LineSegment(polygon[0], polygon[2]), true));
+  ear.anim.add(new AnimationShape(new LineSegment(polygon[3], polygon[5]), true));
+  ear.anim.add(new AnimationShape(new LineSegment(polygon[6], polygon[2]), true));
+  ear.anim.add(new AnimationShape(new LineSegment(polygon[3], polygon[6]), true));
+
   //gift wrapping
 }
 
