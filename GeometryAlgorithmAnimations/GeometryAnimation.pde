@@ -1,35 +1,18 @@
 class GeometryAnimation {
   protected int time;
-  protected boolean enabled, visible;
-<<<<<<< HEAD
+  //If not enabled, this animation will not tick. If not visible, this animation will not tick or render
+  public boolean enabled, visible;
   //Will always be rendered at any point in the animation
-  protected Shape[] initialGraph;
+  public ArrayList<Shape> base;
   //Will be rendered sequentially as the algorithm progresses
-  protected AnimationShape[] animationSteps;
+  public ArrayList<AnimationShape> anim;
 
   public GeometryAnimation() {
     this.time = 0; 
     this.enabled = false;
     this.visible = true;
-  }
-
-  //Advance time
-  public void Tick() {
-    //TODO: implement
-  }
-
-  //Render all elements in the initial graph,
-  //plus all elements to be rendered at the current time
-  public void Render() {
-    //TODO: implement
-=======
-  protected Point[] polygon;
-
-  public GeometryAnimation(Point[] polygon) {
-    this.time = 0; 
-    this.enabled = false;
-    this.visible = true;
-    this.polygon = polygon;
+    this.base = new ArrayList<Shape>();
+    this.anim = new ArrayList<AnimationShape>();
   }
 
   public void Start() {
@@ -46,8 +29,27 @@ class GeometryAnimation {
     this.time = 0;
   }
 
+  //Advance time
   public void Tick() {
-    ++this.time;
->>>>>>> origin/master
+    if (visible && enabled && time < anim.size())
+      ++time;
+  }
+
+  //Render all elements in the initial graph,
+  //plus all elements to be rendered at the current time
+  public void Render() {
+    if (!visible)
+      return;
+
+    for (Shape s : base) {
+      s.Render();
+    }
+
+    for (int i = 0; i < time; ++i) {
+      //if we're on the current shape in the sequence or the shape we're
+      //looking at is marked persistent
+      if (i == (time - 1) || anim.get(i).persistent)
+        anim.get(i).shape.Render();
+    }
   }
 }

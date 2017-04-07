@@ -9,11 +9,16 @@ interface Shape {
   public void Render();
 }
 
-public class AnimationShape{
- public Shape shape;
- //Whether the shape will continue to render after its initial appearance
- //Useful for giftwrapping, where you show the line rotating into position 
- public boolean persistent;
+public class AnimationShape {
+  public Shape shape;
+  //Whether the shape will continue to render after its initial appearance
+  //Useful for giftwrapping, where you show the line rotating into position 
+  public boolean persistent;
+
+  public AnimationShape(Shape shape, boolean persistent) {
+    this.shape = shape;
+    this.persistent = persistent;
+  }
 }
 
 class Point implements Shape {
@@ -38,6 +43,7 @@ class Point implements Shape {
 
 class LineSegment implements Shape {
   public int x1, y1, x2, y2;
+  public boolean drawEndpoints;
 
   public LineSegment() {
     this(0, 0, 0, 0);
@@ -48,42 +54,47 @@ class LineSegment implements Shape {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    drawEndpoints = true;
   }
 
   public LineSegment(Point p1, Point p2) {
-    this.x1 = p1.x;
-    this.y1 = p1.y;
-    this.x2 = p2.x;
-    this.y2 = p2.y;
+    this(p1.x, p1.y, p2.x, p2.y);
   }
 
   public void Render() {
     stroke(0);
     strokeWeight(1);
     line(x1, y1, x2, y2);
+    if (drawEndpoints) {
+      noStroke();
+      fill(0);
+      ellipseMode(RADIUS);
+      //don't know why, but moving them down a pixel looks way better
+      ellipse(x1, y1 + 1, 2, 2);
+      ellipse(x2, y2 + 1, 2, 2);
+    }
   }
 }
 
-//If you have an angle, run it through SlopeFromAngle() first.
-//Remember, slopes may look strange because in Processing y=0 at the top of the screen
-//i.e. Your slopes will be upside down from traditional geometric representation
 class Line implements Shape {
-  int x, y;
-  float slope;
+  public int x, y;
+  public float angle;
 
   public Line() {
     this(0, 0, 0);
   }
 
-  public Line(int x, int y, float slope) {
+  public Line(int x, int y, float angle) {
     this.x = x;
     this.y = y;
-    this.slope = slope;
+    this.angle = angle;
   }
 
   public void Render() {
-    stroke(0);
+    stroke(200);
     strokeWeight(1);
-    line(x, y, width / slope, height * slope);
+    int endX = (int)(cos(radians(angle)) * (Integer.MAX_VALUE - width)) + x, 
+      endY = (int)(sin(radians(angle)) * (Integer.MAX_VALUE - height)) + y;
+    line(x, y, endX, endY);
   }
 }
