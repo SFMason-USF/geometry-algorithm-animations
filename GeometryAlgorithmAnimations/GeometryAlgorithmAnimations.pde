@@ -32,6 +32,7 @@ void setup() {
   polygon[4] = new Point(XtoP(-3), YtoP(3));
   polygon[5] = new Point(XtoP(-3), YtoP(-3));
 
+//Define base displays
   diagonal = new GeometryAnimation();
   diagonal.base.add(new LineSegment(polygon[0], polygon[1]));
   diagonal.base.add(new LineSegment(polygon[1], polygon[2]));
@@ -47,6 +48,15 @@ void setup() {
   for (int i = 0; i < polygon.length; ++i) {
     wrap.base.add(polygon[i]);
   }
+  
+  //And now the fun part: the animation frames
+  //diagonal
+  
+  
+  //ear-based
+  
+  
+  //gift wrapping
 }
 
 void draw() {
