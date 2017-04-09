@@ -1,7 +1,7 @@
 enum Algorithm { 
   Diagonal, EarBased, GiftWrapping
 }
-final Algorithm algorithm = Algorithm.EarBased;
+final Algorithm algorithm = Algorithm.GiftWrapping;
 
 int MidX, MidY;
 
@@ -19,7 +19,7 @@ void setup() {
   MidX = width / 2;
   MidY = height / 2;
 
-  frameRate(10);
+  frameRate(4);
 
   start = new Button(5, 5, 120, 35, "Start");
   stop = new Button(5, 45, 120, 35, "Stop");
@@ -64,6 +64,56 @@ void setup() {
   ear.anim.add(new AnimationShape(new LineSegment(polygon[3], polygon[6]), true));
 
   //gift wrapping
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, 0), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -10), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -20), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -30), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -40), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -50), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -60), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -70), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[0].x, polygon[0].y, -80), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[0], polygon[1]), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[0], polygon[1]), true));
+
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -90), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -100), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -110), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -120), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -130), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[1].x, polygon[1].y, -140), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[1], polygon[2]), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[1], polygon[2]), true));
+
+  wrap.anim.add(new AnimationShape(new Line(polygon[2].x, polygon[2].y, -150), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[2].x, polygon[2].y, -160), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[2].x, polygon[2].y, -170), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[2], polygon[4]), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[2], polygon[4]), true));
+
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -180), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -190), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -200), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -210), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -220), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -230), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -240), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -250), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[4].x, polygon[4].y, -260), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[4], polygon[5]), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[4], polygon[5]), true));
+
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 90), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 80), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 70), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 60), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 50), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 40), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 30), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 20), false));
+  wrap.anim.add(new AnimationShape(new Line(polygon[5].x, polygon[5].y, 10), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[5], polygon[0]), false));
+  wrap.anim.add(new AnimationShape(new LineSegment(polygon[5], polygon[0]), true));
 }
 
 void draw() {
